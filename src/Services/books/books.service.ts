@@ -25,4 +25,12 @@ export class BooksService {
     async saveBook(newBook: BookDTO): Promise<Book> {
         return await this.bookRepository.saveBook(newBook);
     }
+
+    async deleteBookById(bookID: string): Promise<Book> {
+        try {
+            return await this.bookRepository.deleteBookById(bookID);
+        } catch (err) {
+            throw new BadRequestException('Livro não existente!');
+        }
+    }
 }

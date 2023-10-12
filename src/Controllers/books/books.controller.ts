@@ -36,8 +36,8 @@ export class BooksController {
         return 'Livro atualizado!';
     }
 
-    @Delete()
-    deleteBook(): string {
-        return 'Livro apagado!';
+    @Delete(':bookID')
+    async deleteBookById(@Param('bookID') bookID: string): Promise<Book> {
+        return await this.bookService.deleteBookById(bookID);
     }
 }

@@ -24,4 +24,8 @@ export class BookRepository {
         const savedBook = new this.bookModel(newBook);
         return await savedBook.save();
     }
+
+    async deleteBookById(bookID: string): Promise<Book> {
+        return this.bookModel.findOneAndDelete({ _id: bookID });
+    }
 }
