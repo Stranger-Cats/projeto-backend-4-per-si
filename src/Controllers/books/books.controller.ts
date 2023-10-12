@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Patch, Delete, Body } from '@nestjs/common';
 
 import { BookDTO } from 'src/DTO/books.dto';
+import { Book } from 'src/Database/Interfaces/book.interface';
 import { BooksService } from 'src/Services/books/books.service';
 
 @Controller('books')
@@ -13,8 +14,8 @@ export class BooksController {
     }
 
     @Post()
-    saveBook(@Body() newBook: BookDTO): BookDTO {
-        return this.bookService.saveBook(newBook);
+    async saveBook(@Body() newBook: BookDTO): Promise<Book> {
+        return await this.bookService.saveBook(newBook);
     }
 
     @Patch()

@@ -6,7 +6,7 @@ import {
     IsNumber,
     IsPositive,
     ArrayMinSize,
-    // IsNotEmptyObject,
+    IsNotEmptyObject,
     ValidateNested,
 } from 'class-validator';
 
@@ -24,7 +24,7 @@ export class BookDTO {
     @IsNotEmpty()
     @Type(() => AuthorDTO)
     @ArrayMinSize(1)
-    // @IsNotEmptyObject()
+    @IsNotEmptyObject({}, { each: true })
     @ValidateNested({ each: true })
     readonly author: AuthorDTO[];
 
