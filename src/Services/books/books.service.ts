@@ -28,7 +28,10 @@ export class BooksService {
 
     async deleteBookById(bookID: string): Promise<Book> {
         try {
-            return await this.bookRepository.deleteBookById(bookID);
+            const existeBook = await this.bookRepository.deleteBookById(bookID);
+            if (!existeBook)
+                throw new BadRequestException('Livro não existente!');
+            return existeBook;
         } catch (err) {
             throw new BadRequestException('Livro não existente!');
         }
