@@ -16,6 +16,10 @@ export class BookRepository {
             .exec();
     }
 
+    async getBookById(bookID: string): Promise<Book> {
+        return await this.bookModel.findById(bookID, { __v: false });
+    }
+
     async saveBook(newBook: BookDTO): Promise<Book> {
         const savedBook = new this.bookModel(newBook);
         return await savedBook.save();

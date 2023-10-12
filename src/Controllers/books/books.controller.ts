@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Patch, Delete, Body } from '@nestjs/common';
+import {
+    Controller,
+    Get,
+    Post,
+    Patch,
+    Delete,
+    Body,
+    Param,
+} from '@nestjs/common';
 
 import { BookDTO } from 'src/DTO/books.dto';
 import { Book } from 'src/Database/Interfaces/book.interface';
@@ -11,6 +19,11 @@ export class BooksController {
     @Get()
     async getAllBooks(): Promise<Book[]> {
         return await this.bookService.getAllBooks();
+    }
+
+    @Get(':bookID')
+    async getBookById(@Param('bookID') bookID: string): Promise<Book> {
+        return await this.bookService.getBookById(bookID);
     }
 
     @Post()
