@@ -32,4 +32,13 @@ export class BookRepository {
     async updateBookById(bookID: string, newBook: BookDTO): Promise<Book> {
         return await this.bookModel.findByIdAndUpdate({ _id: bookID }, newBook);
     }
+
+    async getBookByAuthorName(authorName: string[]): Promise<Book[]> {
+        return await this.bookModel.find({
+            $or: [
+                { 'author.name': { $in: authorName } },
+                { 'author.subname': { $in: authorName } },
+            ],
+        });
+    }
 }

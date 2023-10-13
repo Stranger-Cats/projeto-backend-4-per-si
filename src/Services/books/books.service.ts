@@ -55,4 +55,16 @@ export class BooksService {
             throw new BadRequestException('Não foi possível atualizar!');
         }
     }
+
+    async getBookByAuthorName(authorName: string): Promise<Book[]> {
+        const splitedAuthorName = authorName.split(' ');
+
+        const foundBooks =
+            await this.bookRepository.getBookByAuthorName(splitedAuthorName);
+
+        if (!foundBooks.length)
+            throw new BadRequestException('Não existe esse author!');
+
+        return foundBooks;
+    }
 }
