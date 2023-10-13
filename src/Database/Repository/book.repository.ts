@@ -41,4 +41,13 @@ export class BookRepository {
             ],
         });
     }
+
+    async getBookByName(bookName: string): Promise<Book[]> {
+        return await this.bookModel.find(
+            {
+                name: { $regex: bookName, $options: 'i' },
+            },
+            { __v: false },
+        );
+    }
 }

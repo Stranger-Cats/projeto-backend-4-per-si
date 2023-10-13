@@ -67,4 +67,13 @@ export class BooksService {
 
         return foundBooks;
     }
+
+    async getBookByName(bookName: string): Promise<Book[]> {
+        const foundBooks = await this.bookRepository.getBookByName(bookName);
+
+        if (!foundBooks.length)
+            throw new BadRequestException('Não foi encontrado!');
+
+        return foundBooks;
+    }
 }
