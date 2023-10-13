@@ -26,6 +26,10 @@ export class BookRepository {
     }
 
     async deleteBookById(bookID: string): Promise<Book> {
-        return this.bookModel.findOneAndDelete({ _id: bookID });
+        return await this.bookModel.findOneAndDelete({ _id: bookID });
+    }
+
+    async updateBookById(bookID: string, newBook: BookDTO): Promise<Book> {
+        return await this.bookModel.findByIdAndUpdate({ _id: bookID }, newBook);
     }
 }

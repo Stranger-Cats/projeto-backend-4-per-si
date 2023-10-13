@@ -31,9 +31,12 @@ export class BooksController {
         return await this.bookService.saveBook(newBook);
     }
 
-    @Patch()
-    updateBook(): string {
-        return 'Livro atualizado!';
+    @Patch(':BookID')
+    async updateBookById(
+        @Param('BookID') bookID: string,
+        @Body() newBook: BookDTO,
+    ): Promise<Book> {
+        return this.bookService.updateBookById(bookID, newBook);
     }
 
     @Delete(':bookID')

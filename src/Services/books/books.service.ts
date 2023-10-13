@@ -16,7 +16,10 @@ export class BooksService {
 
     async getBookById(bookID: string): Promise<Book> {
         try {
-            return await this.bookRepository.getBookById(bookID);
+            const existeBook = await this.bookRepository.getBookById(bookID);
+            if (!existeBook)
+                throw new BadRequestException('Livro não encontrado! ');
+            return existeBook;
         } catch (err) {
             throw new BadRequestException('Livro não encontrado!', err);
         }
@@ -34,6 +37,22 @@ export class BooksService {
             return existeBook;
         } catch (err) {
             throw new BadRequestException('Livro não existente!');
+        }
+    }
+
+    async updateBookById(bookID: string, newBook: BookDTO): Promise<Book> {
+        const existeBook = await this.bookRepository.getBookById(bookID);
+        if (!existeBook) throw new BadRequestException('Livro não existe!');
+
+        const updateBook = await this.bookRepository.updateBookById(
+            bookID,
+            newBook,
+        );
+
+        if (updateBook) {
+            return this.bookRepository.getBookById(bookID);
+        } else {
+            throw new BadRequestException('Não foi possível atualizar!');
         }
     }
 }
